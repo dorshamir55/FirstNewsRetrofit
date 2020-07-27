@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FirstNews</string>
+    <string name="main_title">הראשון בחדשות</string>
+    <string name="sport_title">חדשות הספורט</string>
+    <string name="weather_title">מזג אוויר</string>
+    <string name="permission_msg">כדי לצפות בתחזית מזג האוויר את/ה חייב/ת לאשר הרשאות מיקום</string>
+    <string name="permission_title">תחזית מזג האוויר נכשלה!</string>
+    <string name="location_settings">קבל הרשאות מיקום</string>
+    <string name="quit">יציאה</string>
+    <string name="loading">טוען...</string>
+    <string name="notifications_settings">הגדרות התראות</string>
+    <string name="notifications_settings_title_time">תדירות זמן</string>
+    <string name="notifications_settings_summary_time">בחר את תדירות הזמן בה תופיע ההתראה</string>
+    <string name="one_minute">60 שניות</string>
+    <string name="half_hour">30 דקות</string>
+    <string name="one_hour">שעה אחת</string>
+    <string name="never">אף פעם</string>
+    <string name="last_news">חדשות אחרונות</string>
+    <string name="notification_settings_summary_kind">בחר התראה - חדשות אחרונות /מזג אוויר</string>
+    <string name="notifications_settings_title_kind">סוג התראה</string>
+    <string name="notifications_settings_summary_kind">בחר את סוג ההתראה</string>
+    <string name="notifications_settings_title_active">הפעל התראה</string>
+    <string name="notifications_settings_summary_active">בחר להפעלת ההתראה</string>
+    <string name="notification_active">התראה הופעלה</string>
+    <string name="notification_cancel">התראה בוטלה</string>
+    <string name="weather_not_available">מזג האוויר לא זמין!</string>
+    <string name="assert_message_kind">בחר את סוג ההתראה</string>
+    <string name="assert_message_time">בחר את תדירות הזמן</string>
+    <string name="assert_message_both">בחר את תדירות הזמן ההתראה ואת סוג ההתראה</string>
+</resources>

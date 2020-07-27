@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">FirstNews</string>
+    <string name="main_title">First news</string>
+    <string name="sport_title">Sport news</string>
+    <string name="weather_title">Weather</string>
+    <string name="permission_title">Weather forecast failed!</string>
+    <string name="location_settings">Get location permission</string>
+    <string name="quit">Quit</string>
+    <string name="loading">Loading...</string>
+    <string name="notifications_settings">Notifications settings</string>
+    <string name="notifications_settings_title_time">Time frequency</string>
+    <string name="notifications_settings_summary_time">Select the frequency of time when the notification appears</string>
+    <string name="one_minute">60 seconds</string>
+    <string name="half_hour">30 minutes</string>
+    <string name="one_hour">1 hour</string>
+    <string name="never">Never</string>
+    <string name="last_news">Last news</string>
+    <string name="notification_settings_summary_kind">Select notification - News/Weather</string>
+    <string name="notifications_settings_title_kind">Kind of notification</string>
+    <string name="notifications_settings_summary_kind">Select kind of notification</string>
+
+    <string-array name="list_entries_time">
+        <item>@string/one_minute</item>
+        <item>@string/half_hour</item>
+        <item>@string/one_hour</item>
+    </string-array>
+
+    <string-array name="list_values_time">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="list_entries_kind">
+        <item>@string/last_news</item>
+        <item>@string/weather_title</item>
+    </string-array>
+
+    <string-array name="list_values_kind">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string name="notifications_settings_title_active">Active notification</string>
+    <string name="notifications_settings_summary_active">Select to active the notification</string>
+    <string name="notification_active">Notification activated</string>
+    <string name="notification_cancel">Notification cancelled</string>
+    <string name="permission_msg">In order to watch the weather forecast you must confirm location permissions</string>
+    <string name="weather_not_available">Weather not available!</string>
+    <string name="assert_message_kind">Select kind of notification</string>
+    <string name="assert_message_time">Select the frequency of time when the notification appears</string>
+    <string name="assert_message_both">Select kind of notification and the frequency of time when the notification appears</string>
+
+
+</resources>
