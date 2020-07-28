@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -58,4 +62,7 @@ dependencies {
 
     //LifeCycle
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    //Viewmodel
+    implementation 'android.arch.lifecycle:viewmodel:1.1.1'
 }

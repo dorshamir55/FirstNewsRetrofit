@@ -1,4 +1,4 @@
-package com.example.firstnews;
+package com.example.firstnews.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -11,21 +11,26 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.firstnews.model.Articles;
+import com.example.firstnews.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
-    private List<MainPOJO.Articles> newsList;
+    private List<Articles> newsList;
     private final Context context;
     private MyNewsListener listener;
 
-    public NewsAdapter(Context context, List<MainPOJO.Articles> news) {
+    public NewsAdapter(Context context, List<Articles> news) {
         this.context = context;
         this.newsList = news;
     }
 
+    public void setData(List<Articles> data) {
+        newsList = data;
+    }
 
     interface MyNewsListener {
         void onNewsClicked(int position, View view);
@@ -68,11 +73,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        MainPOJO.Articles news = newsList.get(position);
+        Articles news = newsList.get(position);
         holder.titleTv.setText(news.getTitle());
-        Picasso.get().load(news.getImage()).resize(400,275).into(holder.imageIv);
+        Picasso.get().load(news.getUrlToImage()).resize(400,275).into(holder.imageIv);
         holder.descriptionTv.setText(news.getDescription());
-        holder.dateTv.setText(news.getDate());
+        holder.dateTv.setText(news.getPublishedAt());
 
     }
 

@@ -1,20 +1,18 @@
-package com.example.firstnews;
+package com.example.firstnews.ui;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
-import androidx.preference.SwitchPreference;
-import androidx.preference.SwitchPreferenceCompat;
+
+import com.example.firstnews.receiver.NotificationReceiver;
+import com.example.firstnews.R;
 
 import java.util.Calendar;
 

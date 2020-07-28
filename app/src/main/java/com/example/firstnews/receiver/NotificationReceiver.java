@@ -1,4 +1,4 @@
-package com.example.firstnews;
+package com.example.firstnews.receiver;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -10,17 +10,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,6 +23,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.firstnews.R;
+import com.example.firstnews.model.Day;
+import com.example.firstnews.ui.MainActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -42,8 +40,6 @@ import java.util.Calendar;
 
 import static android.content.Context.ALARM_SERVICE;
 import static android.content.Context.NOTIFICATION_SERVICE;
-import static androidx.core.content.ContextCompat.getSystemService;
-import static com.example.firstnews.WeatherFragment.context;
 
 public class NotificationReceiver extends BroadcastReceiver {
     AlarmManager alarmManager;

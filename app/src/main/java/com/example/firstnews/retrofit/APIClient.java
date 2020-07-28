@@ -1,4 +1,4 @@
-package com.example.firstnews;
+package com.example.firstnews.retrofit;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

@@ -1,4 +1,4 @@
-package com.example.firstnews;
+package com.example.firstnews.ui;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceFragmentCompat;
+
+import com.example.firstnews.R;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 

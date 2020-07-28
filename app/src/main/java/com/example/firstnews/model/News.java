@@ -1,4 +1,4 @@
-package com.example.firstnews;
+package com.example.firstnews.model;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,4 +1,4 @@
-package com.example.firstnews;
+package com.example.firstnews.model;
 
 import android.os.Build;
 

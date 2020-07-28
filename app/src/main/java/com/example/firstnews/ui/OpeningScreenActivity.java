@@ -1,4 +1,4 @@
-package com.example.firstnews;
+package com.example.firstnews.ui;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.example.firstnews.R;
 
 public class OpeningScreenActivity extends AppCompatActivity {
 
