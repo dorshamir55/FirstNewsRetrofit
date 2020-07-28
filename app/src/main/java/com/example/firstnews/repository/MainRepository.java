@@ -60,7 +60,7 @@ public class MainRepository implements IMainRepository {
                         @Override
                         public void run() {
                             if(consumer!=null) {
-                                consumer.apply(articles, adapter);
+                                consumer.apply(articles);//, adapter);
                             }
                         }
                     });

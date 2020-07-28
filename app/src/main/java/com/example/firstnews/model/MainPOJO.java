@@ -38,10 +38,4 @@ public class MainPOJO {
         this.status = status;
     }
 
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [totalResults = "+totalResults+", articles = "+articles+", status = "+status+"]";
-    }
-
 }

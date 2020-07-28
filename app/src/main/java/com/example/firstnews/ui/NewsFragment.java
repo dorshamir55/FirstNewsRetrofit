@@ -32,16 +32,7 @@ import com.example.firstnews.R;
 import com.example.firstnews.viewmodel.IMainViewModel;
 import com.example.firstnews.viewmodel.MainViewModel;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
 
 import static com.example.firstnews.ui.WeatherFragment.context;
 
@@ -68,154 +59,22 @@ public class NewsFragment extends Fragment {
         viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
 
         recyclerView = view.findViewById(R.id.news_recycler);
-
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
 
 
-        //newsList =new ArrayList<>();
-        //newsAdapter = new NewsAdapter(getActivity(), newsList);
-        //recyclerView.setAdapter(newsAdapter);
-
-
-
-/*        APIInterface apiInterface = APIClient.getRetrofitInstance().create(APIInterface.class);
-        Call<MainPOJO> call = apiInterface.getAllNews("il", "sports", "77d0acf9be214ed4b7c4c438e081d389");
-        //List<News> newsList = new ArrayList<>();
-
-        call.enqueue(new Callback<MainPOJO>() {
-
-            @Override
-            public void onResponse(Call<MainPOJO> call, retrofit2.Response<MainPOJO> response) {
-
-                generateDataList(Arrays.asList(response.body().getArticles()));
-                newsAdapter = new NewsAdapter(context, Arrays.asList(response.body().getArticles()));
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(newsAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<MainPOJO> call, Throwable t) {
-
-                Toast.makeText(context, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
-//        viewModel.getArticlesLiveData().observe(getViewLifecycleOwner(), newsList -> {
-//            newsAdapter.setData(newsList);
-//            newsAdapter.notifyDataSetChanged();
-//        });
-
         Consumer<List<Articles>> consumerList = new Consumer<List<Articles>>() {
             @Override
-            public void apply(List<Articles> param, NewsAdapter adapter) {
-                adapter.setData(param);
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+            public void apply(List<Articles> param) {
+                newsAdapter = new NewsAdapter(context, param);
+                //newsAdapter.setData(param);
+                recyclerView.setAdapter(newsAdapter);
+                newsAdapter.notifyDataSetChanged();
             }
         };
         viewModel.getArticlesLiveData(consumerList, "il", "sports", "77d0acf9be214ed4b7c4c438e081d389");
 
-        //getNews();
     }
 
-    private void generateDataList(List<Articles> newsList) {
-        //recyclerView = getActivity().findViewById(R.id.news_recycler);
-        newsAdapter = new NewsAdapter(context,newsList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(newsAdapter);
-        //return newsList;
-    }
-
-    public void getNews() {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, BASE_LINK, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray articlesArray = response.getJSONArray("articles");
-                            int i;
-                            for(i=0; i<articlesArray.length();i++){
-
-                                JSONObject currentElementObject = articlesArray.getJSONObject(i);
-                                /*while(currentElementObject.getJSONObject("source").getString("name").equals("Israelhayom.co.il")){
-                                    i++;
-                                    currentElementObject = articlesArray.getJSONObject(i);
-                                }
-                                if(i<articlesArray.length()) {*/
-
-                                News news = new News();
-                                news.setTitle(currentElementObject.getString("title"));
-                                news.setWebUrl(currentElementObject.getString("url"));
-                                String urlToImage = (currentElementObject.getString("urlToImage"));
-                                String description = (currentElementObject.getString("description"));
-                                news.setDescription(description);
-                                if(description.equals("null")){
-                                    news.setDescription("");
-                                }
-                                news.setImage(urlToImage);
-                                if(news.getImage().equals("null")){
-                                    news.setImage(DEFAULT_IMAGE);
-                                }
-
-                                //   String title = currentElementObject.getString("title");
-                                String date = currentElementObject.getString("publishedAt");
-                                String part1 = date.substring(11, 16);
-                                String part2 = date.substring(0, 4) + "." + date.substring(5, 7) + "." + date.substring(8, 10);
-                                if (date.substring(5, 6).equals("0")) {
-                                    part2 = date.substring(8, 10) + "." + date.substring(6, 7) + "." + date.substring(0, 4);
-                                }
-                                if (part1.substring(0, 1).equals("0")) {
-                                    part1 = date.substring(12, 16);
-                                }
-                                date = part1 + "  " + part2;
-                                news.setDate(date);
-//                                String description = currentElementObject.getString("description");
-//                                if(description.equals("null")){
-//                                    description="";
-//                                }
-
-//                                String icon = currentElementObject.getString("urlToImage");
-                        /*if(icon.equals("null")){
-                            icon = DEFAULT_ICON;
-                        }*/
-
-//                                    String webUrl = currentElementObject.getString("url");
-
-//                                News news = new News(title, description, icon, date, webUrl);
-                                //newsList.add(news);
-                                //newsAdapter.notifyItemInserted(i);
-                            }
-                            //}
-
-//                            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-//                            SharedPreferences.Editor prefEditor = sp.edit();
-//                            String sport = String.valueOf(R.string.sport_title);
-//                            prefEditor.putString("city_news", sport);
-//                            prefEditor.commit();
-
-//                            lastNews = newsList.get(0);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        newsAdapter.notifyDataSetChanged();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(request);
-    }
-
-//    public static News getLastNew(){
-//        return lastNews;
-//    }
 }
