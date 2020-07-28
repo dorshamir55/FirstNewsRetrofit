@@ -12,6 +12,6 @@ import retrofit2.http.Query;
 
 interface APIInterface {
 
-    @GET("/")
-    Call<List<News>> getAllNews();
+    @GET("top-headlines?")
+    Call<MainPOJO> getAllNews(@Query("country") String country,@Query("category") String category,@Query("apiKey") String apiKey);
 }

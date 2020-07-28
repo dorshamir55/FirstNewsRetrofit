@@ -13,6 +13,11 @@ public class News {
     String date;
     @SerializedName("url")
     String webUrl;
+    @SerializedName("author")
+    String author;
+    @SerializedName("content")
+    String content;
+
 
     public News(String title, String description, String image, String date, String webUrl) {
         this.title = title;

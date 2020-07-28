@@ -60,7 +60,7 @@ import static com.example.firstnews.WeatherFragment.weatherAdapter;
 public class NewsFragment extends Fragment {
     NewsAdapter newsAdapter;
     RecyclerView recyclerView;
-    List<News> m_newsList;
+    //List<News> m_newsList;
 
     final String BASE_LINK = "https://newsapi.org/v2/top-headlines?country=il&category=sports&apiKey=77d0acf9be214ed4b7c4c438e081d389";
     final String DEFAULT_IMAGE ="https://aok.pte.hu/docs/felvi/image/sport-1.png";
@@ -70,7 +70,7 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         Log.d("tag", "called onCreateView - News");
         View root = inflater.inflate(R.layout.news_fragment, container, false);
-        //recyclerView = root.findViewById(R.id.news_recycler);
+        recyclerView = root.findViewById(R.id.news_recycler);
         //recyclerView.setHasFixedSize(true);
         //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -83,18 +83,22 @@ public class NewsFragment extends Fragment {
 
 
         APIInterface apiInterface = APIClient.getRetrofitInstance().create(APIInterface.class);
-        Call<List<News>> call = apiInterface.getAllNews();
-        m_newsList = new ArrayList<>();
+        Call<MainPOJO> call = apiInterface.getAllNews("il", "sports", "77d0acf9be214ed4b7c4c438e081d389");
+        //List<News> newsList = new ArrayList<>();
 
-        call.enqueue(new Callback<List<News>>() {
+        call.enqueue(new Callback<MainPOJO>() {
 
             @Override
-            public void onResponse(Call<List<News>> call, retrofit2.Response<List<News>> response) {
-                m_newsList = generateDataList(response.body());
+            public void onResponse(Call<MainPOJO> call, retrofit2.Response<MainPOJO> response) {
+
+                newsAdapter = new NewsAdapter(context,response.body().Articles);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(newsAdapter);
             }
 
             @Override
-            public void onFailure(Call<List<News>> call, Throwable t) {
+            public void onFailure(Call<MainPOJO> call, Throwable t) {
 
                 Toast.makeText(context, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
@@ -107,13 +111,13 @@ public class NewsFragment extends Fragment {
         return root;
     }
 
-    private List<News> generateDataList(List<News> newsList) {
+    private void generateDataList(List<MainPOJO.Articles> newsList) {
         recyclerView = getActivity().findViewById(R.id.news_recycler);
         newsAdapter = new NewsAdapter(context,newsList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(newsAdapter);
-        return newsList;
+        //return newsList;
     }
 
     public void getNews() {

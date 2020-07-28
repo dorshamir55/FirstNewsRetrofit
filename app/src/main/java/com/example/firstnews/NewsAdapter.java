@@ -17,9 +17,15 @@ import java.util.List;
 
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
-    private List<News> newsList;
+    private List<MainPOJO.Articles> newsList;
     private final Context context;
     private MyNewsListener listener;
+
+    public NewsAdapter(Context context, List<MainPOJO.Articles> news) {
+        this.context = context;
+        this.newsList = news;
+    }
+
 
     interface MyNewsListener {
         void onNewsClicked(int position, View view);
@@ -27,11 +33,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     public void setListener(MyNewsListener listener) {
         this.listener=listener;
-    }
-
-    public NewsAdapter(Context context, List<News> newsList) {
-        this.context = context;
-        this.newsList = newsList;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -67,7 +68,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        News news = newsList.get(position);
+        MainPOJO.Articles news = newsList.get(position);
         holder.titleTv.setText(news.getTitle());
         Picasso.get().load(news.getImage()).resize(400,275).into(holder.imageIv);
         holder.descriptionTv.setText(news.getDescription());
