@@ -3,6 +3,7 @@ package com.example.firstnews.repository;
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -40,35 +41,19 @@ public class MainRepository implements IMainRepository {
 
         APIInterface apiInterface = APIClient.getRetrofitInstance().create(APIInterface.class);
         Call<MainPOJO> call = apiInterface.getAllNews("il", "sports", "77d0acf9be214ed4b7c4c438e081d389");
-        //List<News> newsList = new ArrayList<>();
 
         call.enqueue(new Callback<MainPOJO>() {
 
             @Override
             public void onResponse(Call<MainPOJO> call, retrofit2.Response<MainPOJO> response) {
-                //doAsynch(()->{
-                    articles.setValue(Arrays.asList(response.body().getArticles()));
-/*                    NewsAdapter adapter = new NewsAdapter(context, Arrays.asList(response.body().getArticles()));
-                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-                    recyclerView.setLayoutManager(layoutManager);
-                    recyclerView.setAdapter(newsAdapter);*/
-/*
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(consumer!=null) {
-                                consumer.apply(articles);//, adapter);
-                            }
-                        }
-                    });
-                });
-*/
+
+                articles.setValue(Arrays.asList(response.body().getArticles()));
             }
 
             @Override
             public void onFailure(Call<MainPOJO> call, Throwable t) {
                 articles.setValue(null);
-                //Toast.makeText(context, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
         });
     }
