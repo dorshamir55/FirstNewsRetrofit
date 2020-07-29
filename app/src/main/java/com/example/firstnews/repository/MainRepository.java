@@ -37,7 +37,6 @@ public class MainRepository implements IMainRepository {
 
     @Override
     public void getArticlesLiveData(String country, String category, String apiKey) {
-        Handler handler = new Handler();
 
         APIInterface apiInterface = APIClient.getRetrofitInstance().create(APIInterface.class);
         Call<MainPOJO> call = apiInterface.getAllNews("il", "sports", "77d0acf9be214ed4b7c4c438e081d389");
