@@ -62,6 +62,6 @@ public class MainRepository implements IMainRepository {
     }
 
     public LiveData<List<Articles>> getArticles(){
-        return  articles;
+        return articles;
     }
 }
