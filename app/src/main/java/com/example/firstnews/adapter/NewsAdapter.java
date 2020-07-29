@@ -20,12 +20,11 @@ import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private List<Articles> newsList;
-    private final Context context;
     private MyNewsListener listener;
 
-    public NewsAdapter(Context context, List<Articles> news) {
-        this.context = context;
-        this.newsList = news;
+
+    public NewsAdapter() {
+
     }
 
     public void setData(List<Articles> data) {
@@ -57,6 +56,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if(listener!=null) {
                         Log.d("tag", "holder.itemView clicked");
+                        assert newsList != null;
                         listener.onNewsClicked(getAdapterPosition(), v);
                     }
                 }
@@ -67,12 +67,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.news_cell, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_cell, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        assert newsList != null;
         Articles news = newsList.get(position);
         holder.titleTv.setText(news.getTitle());
         Picasso.get().load(news.getUrlToImage()).resize(400,275).into(holder.imageIv);
@@ -83,6 +84,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
+        if (newsList == null){
+            return 0;
+        }
         return newsList.size();
     }
 }

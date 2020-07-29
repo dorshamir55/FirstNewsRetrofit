@@ -8,5 +8,6 @@ import com.example.firstnews.model.Consumer;
 import java.util.List;
 
 public interface IMainViewModel {
-    public void getArticlesLiveData(Consumer<List<Articles>> consumer, String country, String category, String apiKey);
+    public void getArticlesLiveData(String country, String category, String apiKey);
+    public LiveData<List<Articles>> getArticles();
 }

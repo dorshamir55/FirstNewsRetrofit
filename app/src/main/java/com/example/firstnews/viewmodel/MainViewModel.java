@@ -23,7 +23,11 @@ public class MainViewModel extends AndroidViewModel implements IMainViewModel {
     }
 
     @Override
-    public void getArticlesLiveData(Consumer<List<Articles>> consumer, String country, String category, String apiKey) {
-        mainRepository.getArticlesLiveData(consumer, country, category, apiKey);
+    public void getArticlesLiveData(String country, String category, String apiKey) {
+        mainRepository.getArticlesLiveData(country, category, apiKey);
+    }
+
+    public LiveData<List<Articles>> getArticles(){
+        return mainRepository.getArticles();
     }
 }

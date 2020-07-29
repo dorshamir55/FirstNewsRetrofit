@@ -3,16 +3,12 @@ package com.example.firstnews.repository;
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
-import android.provider.ContactsContract;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
-import com.example.firstnews.adapter.NewsAdapter;
 import com.example.firstnews.model.Articles;
-import com.example.firstnews.model.Consumer;
 import com.example.firstnews.model.MainPOJO;
-import com.example.firstnews.remote.IMainRemoteDataSource;
-import com.example.firstnews.remote.MainRemoteDataSource;
 import com.example.firstnews.retrofit.APIClient;
 import com.example.firstnews.retrofit.APIInterface;
 
@@ -23,7 +19,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class MainRepository implements IMainRepository {
-
+    MutableLiveData<List<Articles>> articles = new MutableLiveData<>();
     private Context context;
 
     public MainRepository(Application application) {
@@ -39,7 +35,7 @@ public class MainRepository implements IMainRepository {
     }
 
     @Override
-    public void getArticlesLiveData(Consumer<List<Articles>> consumer, String country, String category, String apiKey) {
+    public void getArticlesLiveData(String country, String category, String apiKey) {
         Handler handler = new Handler();
 
         APIInterface apiInterface = APIClient.getRetrofitInstance().create(APIInterface.class);
@@ -50,12 +46,13 @@ public class MainRepository implements IMainRepository {
 
             @Override
             public void onResponse(Call<MainPOJO> call, retrofit2.Response<MainPOJO> response) {
-                doAsynch(()->{
-                    List<Articles> articles = Arrays.asList(response.body().getArticles());
-                    NewsAdapter adapter = new NewsAdapter(context, Arrays.asList(response.body().getArticles()));
-/*                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+                //doAsynch(()->{
+                    articles.setValue(Arrays.asList(response.body().getArticles()));
+/*                    NewsAdapter adapter = new NewsAdapter(context, Arrays.asList(response.body().getArticles()));
+                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
                     recyclerView.setLayoutManager(layoutManager);
                     recyclerView.setAdapter(newsAdapter);*/
+/*
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -65,11 +62,12 @@ public class MainRepository implements IMainRepository {
                         }
                     });
                 });
+*/
             }
 
             @Override
             public void onFailure(Call<MainPOJO> call, Throwable t) {
-
+                articles.setValue(null);
                 //Toast.makeText(context, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -77,5 +75,9 @@ public class MainRepository implements IMainRepository {
 
     private void doAsynch(Runnable task) {
         new Thread(task).start();
+    }
+
+    public LiveData<List<Articles>> getArticles(){
+        return  articles;
     }
 }

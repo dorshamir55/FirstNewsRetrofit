@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,18 +33,16 @@ import com.example.firstnews.R;
 import com.example.firstnews.viewmodel.IMainViewModel;
 import com.example.firstnews.viewmodel.MainViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.firstnews.ui.WeatherFragment.context;
 
 public class NewsFragment extends Fragment {
     private IMainViewModel viewModel;
-    NewsAdapter newsAdapter;
+    NewsAdapter newsAdapter = new NewsAdapter();
     RecyclerView recyclerView;
-    //List<News> m_newsList;
 
-    final String BASE_LINK = "https://newsapi.org/v2/top-headlines?country=il&category=sports&apiKey=77d0acf9be214ed4b7c4c438e081d389";
-    final String DEFAULT_IMAGE ="https://aok.pte.hu/docs/felvi/image/sport-1.png";
 
     @Nullable
     @Override
@@ -61,19 +60,18 @@ public class NewsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.news_recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(newsAdapter);
 
-
-
-        Consumer<List<Articles>> consumerList = new Consumer<List<Articles>>() {
+        viewModel.getArticles().observe(getViewLifecycleOwner(), new Observer<List<Articles>>() {
             @Override
-            public void apply(List<Articles> param) {
-                newsAdapter = new NewsAdapter(context, param);
-                //newsAdapter.setData(param);
-                recyclerView.setAdapter(newsAdapter);
+            public void onChanged(List<Articles> articles) {
+                //newsAdapter = new NewsAdapter(context, articles);
+                newsAdapter.setData(articles);
                 newsAdapter.notifyDataSetChanged();
             }
-        };
-        viewModel.getArticlesLiveData(consumerList, "il", "sports", "77d0acf9be214ed4b7c4c438e081d389");
+        });
+        viewModel.getArticlesLiveData("il", "sports", "77d0acf9be214ed4b7c4c438e081d389");
+
 
     }
 
