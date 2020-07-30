@@ -41,15 +41,11 @@ import static com.example.firstnews.ui.WeatherFragment.context;
 public class NewsFragment extends Fragment {
     private IMainViewModel viewModel;
     NewsAdapter newsAdapter = new NewsAdapter();
-    RecyclerView recyclerView;
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        Log.d("tag", "called onCreateView - News");
         return inflater.inflate(R.layout.news_fragment, container, false);
-
     }
 
     @Override
@@ -57,7 +53,7 @@ public class NewsFragment extends Fragment {
         //super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
 
-        recyclerView = view.findViewById(R.id.news_recycler);
+        RecyclerView recyclerView = view.findViewById(R.id.news_recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(newsAdapter);

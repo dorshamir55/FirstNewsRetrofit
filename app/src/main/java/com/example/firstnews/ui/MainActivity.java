@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentTransaction transaction;
     private FragmentManager fragmentManager;
-
+    private static boolean start_flg = false;
 
     //Menu tempMenu;
     //MenuItem permission;
@@ -69,11 +69,13 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setCustomView(textView);
 
-
-        fragmentManager = getSupportFragmentManager();
-        transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.frame_container2, new NewsFragment(), NEWS_FRAGMENT)
-                .add(R.id.frame_container1, new WeatherFragment(), WEATHER_FRAGMENT).commit();
+        if(!start_flg) {
+            fragmentManager = getSupportFragmentManager();
+            transaction = fragmentManager.beginTransaction();
+            transaction.add(R.id.frame_container2, new NewsFragment(), NEWS_FRAGMENT)
+                    .add(R.id.frame_container1, new WeatherFragment(), WEATHER_FRAGMENT).commit();
+            start_flg=true;
+        }
 
         setSportTitle();
         if (Build.VERSION.SDK_INT >= 23) {
