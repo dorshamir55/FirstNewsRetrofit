@@ -19,7 +19,7 @@ import java.util.List;
 
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
-    private List<Articles> newsList;
+    private List<Articles> articlesList;
     private MyNewsListener listener;
 
 
@@ -28,7 +28,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
     public void setData(List<Articles> data) {
-        newsList = data;
+        articlesList = data;
     }
 
     interface MyNewsListener {
@@ -56,7 +56,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if(listener!=null) {
                         Log.d("tag", "holder.itemView clicked");
-                        assert newsList != null;
+                        assert articlesList != null;
                         listener.onNewsClicked(getAdapterPosition(), v);
                     }
                 }
@@ -73,20 +73,20 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        assert newsList != null;
-        Articles news = newsList.get(position);
-        holder.titleTv.setText(news.getTitle());
-        Picasso.get().load(news.getUrlToImage()).resize(400,275).into(holder.imageIv);
-        holder.descriptionTv.setText(news.getDescription());
-        holder.dateTv.setText(news.getPublishedAt());
+        assert articlesList != null;
+        Articles articles = articlesList.get(position);
+        holder.titleTv.setText(articles.getTitle());
+        Picasso.get().load(articles.getUrlToImage()).resize(400,275).into(holder.imageIv);
+        holder.descriptionTv.setText(articles.getDescription());
+        holder.dateTv.setText(articles.getPublishedAt());
 
     }
 
     @Override
     public int getItemCount() {
-        if (newsList == null){
+        if (articlesList == null){
             return 0;
         }
-        return newsList.size();
+        return articlesList.size();
     }
 }
